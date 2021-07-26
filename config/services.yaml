@@ -8,7 +8,7 @@ parameters:
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: false      # Automatically injects dependencies in your services.
+        autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         public: false
 
@@ -32,8 +32,8 @@ services:
     # please note that last definitions always *replace* previous ones
 
     # dependency injection without autowiring (injects each dependency into the service)
-    App\Controller\BlogController: ['@App\Service\Greeting', '@App\Service\VeryBadDesign']
-    App\Service\Greeting: ['@monolog.logger']
+    # App\Controller\BlogController: ['@App\Service\Greeting', '@App\Service\VeryBadDesign']
+    # App\Service\Greeting: ['@monolog.logger']
 
     # make public only the service you need (don't make public all of them)
     app.greeting:
