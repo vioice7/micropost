@@ -5,36 +5,78 @@ namespace App\Controller;
 use App\Service\Greeting;
 use App\Service\VeryBadDesign;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+/**
+ * @Route("/blog") 
+ */
 
 class BlogController extends AbstractController
 {
 
     /**
-     * @var Greeting
+     * @param SessionInterface $session
+     * @param RouterInterface $router
      */
-    private $greeting;
 
-    /**
-     * @var VeryBadDesign
-     */
-    private $baddesign;
-
-    public function __construct(Greeting $greeting, VeryBadDesign $baddesign)
+    public function __construct(SessionInterface $session, RouterInterface $router) 
     {
-        $this->greeting = $greeting;
-        $this->baddesign = $baddesign;
+        $this->session = $session;
+        $this->router = $router;
     }
 
     /**
      * @Route("/", name="blog_index")
      */
 
-    public function index(Request $request)
+    public function index() // Request $request
     {
-        return $this->render('base.html.twig', ['message' => $this->greeting->greet(
-            $request->get('name')
-        )]);
+        return $this->render('blog/index.html.twig', 
+            [
+                'posts' => $this->session->get('posts')
+            
+            ]);
+    }
+
+    /**
+     * @Route("/add", name="blog_add")
+     */
+
+    public function add()
+    {
+        $posts = $this->session->get('posts');
+        $posts[uniqid()] = [
+            'title' => 'A random title ' . rand(0, 100),
+            'text' => 'A random text ' . rand(0, 100),
+            'date' => new \DateTime()
+        ];
+        $this->session->set('posts', $posts);
+
+        return new RedirectResponse($this->router->generate('blog_index'));
+    }
+
+    /**
+     * @Route("/show/{id}", name="blog_show")
+     */
+
+    public function show($id)
+    {
+        $posts = $this->session->get('posts');
+
+        if(!$posts || !isset($posts[$id])) {
+            throw new NotFoundHttpException('Post not found');
+        }
+
+        return $this->render('blog/post.html.twig', 
+            [
+                'id' => $id,
+                'post' => $posts[$id],
+            ]);
     }
 }
