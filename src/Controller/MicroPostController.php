@@ -152,7 +152,7 @@ class MicroPostController
         $user = $tokenStorage->getToken()->getUser();
         
         $microPost = new MicroPost();
-        $microPost->setTime(new \DateTime());
+        // $microPost->setTime(new \DateTime());
         $microPost->setUser($user);
 
         $form = $this->formFactory->create(MicroPostType::class, $microPost);
@@ -173,6 +173,24 @@ class MicroPostController
                 ['form' => $form->createView()]
             )
         );
+    }
+
+    /**
+     * @Route("/user/{username}", name="micro_post_user")
+     */
+    public function userPosts(User $userWithPosts)
+    {
+        $html = $this->twig->render('micro-post/index.html.twig', [
+            //'posts' => $this->microPostRepository->findAll()
+//           'posts' => $this->microPostRepository->findBy(
+//                ['user' => $userWithPosts], 
+//                ['time' => 'DESC']
+//            )
+             'posts' => $userWithPosts->getPosts()
+
+        ]);
+
+        return new Response($html);
     }
 
     /**

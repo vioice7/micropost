@@ -20,7 +20,7 @@ class SecurityController
     }
 
     /**
-    * @Route("/login", name="security_login")
+    * @Route("/micro-post/login/login", name="security_login")
     */
     public function login(AuthenticationUtils $authenticationUtils)
     {
@@ -34,7 +34,7 @@ class SecurityController
     }
 
     /**
-    * @Route("/logout", name="security_logout")
+    * @Route("/micro-post/logout/logout", name="security_logout")
     */
     public function logout()
     {
