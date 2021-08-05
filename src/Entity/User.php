@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,6 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface, \Serializable
 {
+    const ROLE_USER = 'ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -54,6 +58,22 @@ class User implements UserInterface, \Serializable
      * @Assert\Length(min=4, max=50)
      */
     private $fullName;
+
+    /**
+     * @var array
+     * @ORM\Column(type="simple_array")
+     */
+    private $roles;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MicroPost", mappedBy="user")
+     */
+    private $posts;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -137,9 +157,12 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return [
-            'ROLE_USER'
-        ];
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
     }
 
     public function getSalt()
@@ -185,4 +208,13 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */ 
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
 }
