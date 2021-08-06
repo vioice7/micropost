@@ -180,12 +180,13 @@ class MicroPostController
      */
     public function userPosts(User $userWithPosts)
     {
-        $html = $this->twig->render('micro-post/index.html.twig', [
+        $html = $this->twig->render('micro-post/user-post.html.twig', [
             //'posts' => $this->microPostRepository->findAll()
 //           'posts' => $this->microPostRepository->findBy(
 //                ['user' => $userWithPosts], 
 //                ['time' => 'DESC']
 //            )
+             'user' => $userWithPosts,
              'posts' => $userWithPosts->getPosts()
 
         ]);
