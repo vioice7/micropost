@@ -25,7 +25,7 @@ class FollowingController extends Controller
         // so that a user can t follow himself
         if($userToFollow->getId() != $currentUser->getId())
         {
-                $currentUser->getFollowing()->add($userToFollow);
+                $currentUser->follow($userToFollow);
 
                 $this->getDoctrine()->getManager()->flush();
         }

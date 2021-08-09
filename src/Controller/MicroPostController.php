@@ -84,14 +84,18 @@ class MicroPostController
     /**
      * @Route("/", name="micro_post_index")
      */
-    public function index(TokenStorageInterface $tokenStorage)
+    public function index(TokenStorageInterface $tokenStorage, UserRepository $userRepository)
     {
         $currentUser = $tokenStorage->getToken()->getUser();
+
+        // if the user doesn't follow anybody we can propose a list of users with 5 or more posts
+        $usersToFollow = [];
 
         // check if a user is auth
         if($currentUser instanceof User) 
         {
             $posts = $this->microPostRepository->findAllByUsers($currentUser->getFollowing());
+            $usersToFollow = count($posts) === 0 ? $userRepository->findAllWithMoreThan5PostsExceptUser($currentUser) : [];
         }
         else
         {
@@ -102,6 +106,7 @@ class MicroPostController
         $html = $this->twig->render('micro-post/index.html.twig', [
             //'posts' => $this->microPostRepository->findAll()
             'posts' => $posts,
+            'usersToFollow' => $usersToFollow
         ]);
 
         return new Response($html);
