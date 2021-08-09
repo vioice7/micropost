@@ -84,11 +84,24 @@ class MicroPostController
     /**
      * @Route("/", name="micro_post_index")
      */
-    public function index()
+    public function index(TokenStorageInterface $tokenStorage)
     {
+        $currentUser = $tokenStorage->getToken()->getUser();
+
+        // check if a user is auth
+        if($currentUser instanceof User) 
+        {
+            $posts = $this->microPostRepository->findAllByUsers($currentUser->getFollowing());
+        }
+        else
+        {
+            $posts = $this->microPostRepository->findBy([], ['time' => 'DESC']);
+        }
+
+        // here we always show the posts, dependingo on the variable (auth or not aut user)
         $html = $this->twig->render('micro-post/index.html.twig', [
             //'posts' => $this->microPostRepository->findAll()
-            'posts' => $this->microPostRepository->findBy([], ['time' => 'DESC'])
+            'posts' => $posts,
         ]);
 
         return new Response($html);
