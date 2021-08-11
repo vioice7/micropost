@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Twig;
-    
+
+use App\Entity\LikeNotification;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigTest;
 use Twig\TwigFilter;
 use Twig\Extension\GlobalsInterface;
 
@@ -33,5 +35,15 @@ class AppExtension extends AbstractExtension implements GlobalsInterface
         return 'RON ' . number_format($number, 2, '.', ',');
     }
 
+    public function getTests()
+    {
+        return [
+            new \Twig\TwigTest(
+                'like', 
+                function($obj) {
+                    return $obj instanceof LikeNotification;
+                })
+        ];
+    }
 
 }
