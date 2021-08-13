@@ -2,7 +2,12 @@
 
 <p>
 Hello <strong>{{user.fullName}}</strong>
-You have succesfully registered to the micro post app.
+You have registered to the micro post app.
+</p>
+<p>
+Please confirm your registration by using this 
+<a href="{{ url('security_confirm', {'token': user.confirmationToken}) }}">link</a>
+.
 </p>
 <p>
 To login go to the login <a href="{{ url('security_login') }}">page</a>.

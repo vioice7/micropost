@@ -15,21 +15,21 @@ class AppFixtures extends Fixture
         [
             'username' => 'john_doe',
             'email' => 'john_doe@doe.com',
-            'password' => 'john123',
+            'password' => 'aime10',
             'fullName' => 'John Doe',
             'roles' => [User::ROLE_USER]
         ],
         [
             'username' => 'rob_smith',
             'email' => 'rob_smith@smith.com',
-            'password' => 'rob12345',
+            'password' => 'aime10',
             'fullName' => 'Rob Smith',
             'roles' => [User::ROLE_USER]
         ],
         [
             'username' => 'marry_gold',
             'email' => 'marry_gold@gold.com',
-            'password' => 'marry12345',
+            'password' => 'aime10',
             'fullName' => 'Marry Gold',
             'roles' => [User::ROLE_USER]
         ],
@@ -106,6 +106,7 @@ class AppFixtures extends Fixture
                     )
             );
             $user->setRoles($userData['roles']);
+            $user->setEnabled(true);
     
             $this->addReference(
                 $userData['username'], 
