@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="ro" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="menu.signin">
+                <source>Sign in</source>
+                <target>Conecteaza-te</target>
+            </trans-unit>
+            <trans-unit id="menu.signout">
+                <source>Sign out</source>
+                <target>Deconecteaza-te</target>
+            </trans-unit>
+            <trans-unit id="menu.notifications">
+                <source>Notifications</source>
+                <target>Notificari</target>
+            </trans-unit>
+            <trans-unit id="menu.add">
+                <source>Add new</source>
+                <target>Adauga</target>
+            </trans-unit>
+            <trans-unit id="post.recent">
+                <source>Recent updates</source>
+                <target>Actualizari recente</target>
+            </trans-unit>
+
+            <trans-unit id="register.terms">
+                <source>I agree to the terms of service</source>
+                <target>Accept termenii si conditiile</target>
+            </trans-unit>
+
+            <trans-unit id="register.username">
+                <source>Username</source>
+                <target>Numele utilizator</target>
+            </trans-unit>
+            <trans-unit id="register.password">
+                <source>Password</source>
+                <target>Parola</target>
+            </trans-unit>
+            <trans-unit id="register.repeated_password">
+                <source>Repeated Password</source>
+                <target>Repeta parola</target>
+            </trans-unit>
+            <trans-unit id="register.email">
+                <source>Email</source>
+                <target>Casuta postala electronica (e-mail)</target>
+            </trans-unit>
+            <trans-unit id="register.full_name">
+                <source>Full name</source>
+                <target>Nume si prenume</target>
+            </trans-unit>
+            <trans-unit id="register.register">
+                <source>Register</source>
+                <target>Inregistreaza-te</target>
+            </trans-unit>
+
+            <trans-unit id="notifications.none">
+                <source>You have not notifications</source>
+                <target>Nu aveti notificari</target>
+            </trans-unit>
+
+            <trans-unit id="email.registration">
+                <source>email.registration</source>
+                <target><![CDATA[<h3>Bun venit in aplicatie!</h3>
+<p>Buna %name%! V-ati inscris in aplicatie!</p>
+<p>Pentru a va confirma contul dati clic pe aceasta
+<a href="%confirm-link%">legatura</a>.
+</p>
+<p>Pentru a va conecta, accesati <a href="%login-link%">pagina de conectare</a>.</p>
+<p>Multumim!</p>]]></target>
+            </trans-unit>
+
+            <trans-unit id="user.followers">
+                <source>Followers</source>
+                <target>{0} Nici un urmaritor|{1} Un urmaritor|]1,Inf[ %count% Urmaritori</target>
+            </trans-unit>
+
+            <trans-unit id="user.following">
+                <source>Following</source>
+                <target>{0} Nu urmareste pe nimeni|{1} Urmareste un utilizator|]1,Inf[ Urmareste %count% utilizatori</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
