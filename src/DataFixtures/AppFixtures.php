@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\MicroPost;
 use App\Entity\User;
+use App\Entity\UserPreferences;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -52,6 +53,11 @@ class AppFixtures extends Fixture
         'What are you up to today?',
         'Did you watch the game yesterday?',
         'How was your day?'
+    ];
+
+    private const LANGUAGES = [
+        'en',
+        'ro'
     ];
 
     /**
@@ -113,6 +119,13 @@ class AppFixtures extends Fixture
                 $user
             );
     
+            $preferences = new UserPreferences();
+            $preferences->setLocale(self::LANGUAGES[rand(0,1)]);
+
+            $user->setPreferences($preferences);
+
+            //$manager->persist($preferences);
+
             $manager->persist($user);
         }
         
